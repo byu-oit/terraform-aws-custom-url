@@ -5,3 +5,30 @@ terraform {
   }
 }
 
+resource "aws_route53_zone" "main" {
+  name = var.url
+}
+
+resource "aws_route53_record" "custom-url-a" {
+  name    = var.url
+  type    = "A"
+  zone_id = aws_route53_zone.main.zone_id
+
+  alias {
+    evaluate_target_health = false
+    name                   = var.alias_domain_name
+    zone_id                = var.alias_zone_id
+  }
+}
+
+resource "aws_route53_record" "custom-url-4a" {
+  name    = var.url
+  type    = "AAAA"
+  zone_id = aws_route53_zone.main.zone_id
+
+  alias {
+    evaluate_target_health = false
+    name                   = var.alias_domain_name
+    zone_id                = var.alias_zone_id
+  }
+}

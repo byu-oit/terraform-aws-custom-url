@@ -3,7 +3,17 @@ provider "aws" {
   region  = "us-west-2"
 }
 
-module "<module_name>" {
-  source = "git@github.com:byu-oit/terraform-aws-<module_name>?ref=v1.0.0"
-  #source = "../" # for local testing during module development
+module "cf_dist" {
+  source             = "git@github.com:byu-oit/terraform-aws-cloudfront-dist?ref=v1.0.0"
+  env_tag            = "dev"
+  origin_domain_name = "s3-bucket-name.us-west-2.amazonaws.com"
+  origin_id          = "s3-bucket-name"
+  repo_name          = "test"
+}
+
+module "hosted_zone" {
+  source            = "../"
+  alias_domain_name = module.cf_dist.domain_name
+  alias_zone_id     = module.cf_dist.hosted_zone_id
+  url               = "domain-name.byu.edu"
 }

@@ -1,21 +1,15 @@
-![Latest GitHub Release](https://img.shields.io/github/v/release/byu-oit/terraform-aws-<module_name>?sort=semver)
+![Latest GitHub Release](https://img.shields.io/github/v/release/byu-oit/terraform-aws-hosted-zone?sort=semver)
 
 # Terraform Module Template
-GitHub template to quick start creating terraform templates
 
-## To Use Template
-1. Click the "Use this template" button 
-2. Name your terraform module repo as `terraform-aws-<module_name>` (if creating non-AWS module change `aws` to the cloud provider)
-3. Rename this README's title to the title you named your repo in #2
-4. Update the shield badge URL to match the module's repo at the top of this README
-5. Update this README to match the module's title (in the usage section)
-6. Update `example/example.tf` to match the module's title
-7. Remove this section from the README
- 
+This is a simple Terraform module to create a Route 53 Hosted Zone with and A and AAAA alias record.
+
 ## Usage
 ```hcl
-module "<module_name>" {
-  source = "git@github.com:byu-oit/terraform-aws-<module_name>?ref=v1.0.0"
+module "custom_url" {
+  alias_domain_name = module.cf_dist.domain_name
+  alias_zone_id     = module.cf_dist.hosted_zone_id
+  url               = "domain-name.byu.edu"
 }
 ```
 
@@ -25,9 +19,11 @@ module "<module_name>" {
 ## Inputs
 | Name | Type  | Description | Default |
 | --- | --- | --- | --- |
-| | | | |
+| url | string | The URL for the hosted zone. |
+| alias_domain_name | string | The domain name the alias should point to. |
+| alias_zone_id | string | The hosted zone ID the alias should point to. |
 
 ## Outputs
 | Name | Type | Description |
 | ---  | ---  | --- |
-| | | |
+| hosted_zone | object | The [hosted zone object](https://www.terraform.io/docs/providers/aws/r/route53_zone.html#attributes-reference). |
