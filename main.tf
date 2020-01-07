@@ -5,8 +5,18 @@ terraform {
   }
 }
 
+locals {
+  tags = {
+    env              = var.env_tag
+    data-sensitivity = var.data_sensitivity_tag
+    repo             = "https://github.com/byu-oit/${var.repo_name}"
+  }
+}
+
 resource "aws_route53_zone" "main" {
   name = var.url
+
+  tags = local.tags
 }
 
 resource "aws_route53_record" "custom-url-a" {

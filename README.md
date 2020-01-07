@@ -19,6 +19,9 @@ module "custom_url" {
 ## Inputs
 | Name | Type  | Description | Default |
 | --- | --- | --- | --- |
+| env_tag | string | The environment tag for the resources. |
+| data_sensitivity_tag | string | The data-sensitivity tag for the resources. | confidential |
+| repo_name | string | The name of the repo containing the site. |
 | url | string | The URL for the hosted zone. |
 | alias_domain_name | string | The domain name the alias should point to. |
 | alias_zone_id | string | The hosted zone ID the alias should point to. |
