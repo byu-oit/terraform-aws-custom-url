@@ -7,7 +7,7 @@ This is a simple Terraform module to create a Route 53 Hosted Zone with and A an
 ## Usage
 ```hcl
 module "custom_url" {
-  source            = "github.com/byu-oit/terraform-aws-custom-url.git?ref=v1.0.1"
+  source            = "github.com/byu-oit/terraform-aws-custom-url.git?ref=v1.0.0"
   env_tag           = "dev"
   alias_domain_name = module.cf_dist.domain_name
   alias_zone_id     = module.cf_dist.hosted_zone_id
